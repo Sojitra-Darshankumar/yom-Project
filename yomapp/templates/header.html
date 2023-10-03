@@ -1,0 +1,96 @@
+{%load static%}
+
+<!DOCTYPE html>
+<!--[if IE 9]>
+<html class="ie ie9" lang="en-US">
+<![endif]-->
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>YOM- Multipurpose HTML Theme</title>
+
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,800"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="http://fonts.googleapis.com/css?family=Audiowide"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <link rel="stylesheet" href="{% static 'files/css/bootstrap.css'%}" />
+    <link rel="stylesheet" href="{% static 'files/css/animate.css'%}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'files/css/simple-line-icons.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'files/css/font-awesome.min.css'%}"
+    />
+    <link rel="stylesheet" href="{% static 'files/css/style.css'%}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'files/rs-plugin/css/settings.css'%}"
+    />
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="site-header">
+      <div id="main-header" class="main-header header-sticky">
+        <div class="inner-header clearfix">
+          <div class="logo">
+            <a href="/">YOM</a>
+          </div>
+          <div class="header-right-toggle pull-right hidden-md hidden-lg">
+            <a href="javascript:void(0)" class="side-menu-button"
+              ><i class="fa fa-bars"></i
+            ></a>
+          </div>
+          <nav class="main-navigation pull-right hidden-xs hidden-sm">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li>
+                <a href="#" class="has-submenu">Pages</a>
+                <ul class="sub-menu">
+                  <li><a href="/services/">Services</a></li>
+                  <li><a href="/clients/">Clients</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" class="has-submenu">Blog Category</a>
+                <ul class="sub-menu">
+                  {% for rows in blogcategory_detail %}
+                  <li><a href="/blog/{{rows.id}}">{{rows.Name}}</a></li>
+                  {% endfor %}
+                  <li><a href="/bloggrid/">All Blog</a></li>
+                </ul>
+              </li>
+              <li><a href="/about/">About</a></li>
+              <li>
+                <a href="#" class="has-submenu">Work</a>
+                <ul class="sub-menu">
+                  <!-- <li><a href="/work3columns">Three Columns</a></li> -->
+                  <li><a href="/work4columns">Four Columns</a></li>
+                  <!-- <li><a href="/singleproject">Single project</a></li> -->
+                </ul>
+              </li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

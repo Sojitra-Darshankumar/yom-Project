@@ -1,0 +1,316 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>View Blog</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="{% static 'admin/plugins/fontawesome-free/css/all.min.css'%}"
+    />
+    <!-- DataTables -->
+    <link
+      rel="stylesheet"
+      href="{% static 'admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}"
+    />
+    <!-- Theme style -->
+    <link
+      rel="stylesheet"
+      href="{% static 'admin/dist/css/adminlte.min.css'%}"
+    />
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      {%include 'admin-header.html'%} {%include 'admin-sidebar.html'%}
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Blog DataTables</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item">
+                    <a href="/adminwelcome/">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <!-- /.card -->
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">DataTable with default features</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table
+                      id="example1"
+                      class="table table-bordered table-striped"
+                      style="text-align: center"
+                    >
+                      <thead>
+                        <div class="serach_main d-flex">
+                          <div class="widget-item">
+                            <h2>Search here</h2>
+                            <div class="dec-line d-flex justify-content-between">
+                              <div class="select_field">
+                              </div><div class="form-group mr-3">
+                                <!-- <label for="exampleInputEmail1">Search By</label> -->
+                                <!-- <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Cat_id" name="Cat_id"> -->
+                                <select name="Cat_id" id="search_by" class="form-control" style="width: 170px;">
+                                  <option value="Name">By Name</option>
+                                  <option value="id">By id</option>
+                                  <option value="workcategory">By Work Category</option>
+                                </select>
+                              </div>
+                              <div class="search_keyword form-control">
+                                <form method="get" class="blog-search">
+                                  {% csrf_token %}
+                                  <input
+                                    type="text"
+                                    class="blog-search-field"
+                                    name="search_work"
+                                    placeholder="Type keyword..."
+                                    value=""
+                                    id="search_work"
+                                    style="border: none;"
+                                  />
+                                </form>
+                              </div>
+                              <div class="form-group ml-3">
+                                <select name="Cat_id" id="search_by_category" class="form-control" style="width: 150px;">
+                                  {% for row_cat in work_category %}
+                                  <option value="{{row_cat.id}}">{{row_cat.Name}}</option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Work Category</th>
+                          <th>Picture</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tr>
+                        <tbody id="mydata">
+                          {% for row in work_deatil %}
+                          <tr>
+                            <td>{{row.id}}</td>
+                            <td>{{row.Name}}</td>
+                            <td>{{row.Description}}</td>
+                            <td>{{row.Work_Category.id}}</td>
+                            <td>
+                              <img
+                                src="../../media/{{row.Picture}}"
+                                alt=""
+                                width="70px"
+                                height="70px"
+                                style="object-fit: cover; border-radius: 20px"
+                              />
+                            </td>
+                            <td>
+                              <a href="/editwork/{{row.id}}"
+                                ><button
+                                  type="button"
+                                  class="btn btn-outline-primary"
+                                >
+                                  Edit Profile
+                                </button></a
+                              >
+                              <a
+                                href="/deletework/{{row.id}}"
+                                onclick="return confirm('ARE YOU SURE?')"
+                                ><button
+                                  type="button"
+                                  class="btn btn-outline-danger"
+                                >
+                                  Delete
+                                </button></a
+                              >
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </tr>
+                      <tfoot>
+                        <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Work Category</th>
+                          <th>Picture</th>
+                          <th>Action</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <!-- <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.2.0
+    </div>
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+  </footer> -->
+      {%include 'admin-footer.html'%}
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'admin/plugins/jquery/jquery.min.js'%}"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#search_work").keyup(function () {
+          var txt = $(this).val();
+          var search_by = $('#search_by').val();
+          var serch_by_category = $('#search_by_category').val()
+          console.log(txt);
+          $.ajax({
+            type: "get",
+            url: "/ajax_search_work",
+            data: {
+              search_work: txt,
+              search_by: search_by,
+              serch_by_category:serch_by_category,
+            },
+            success: function (res) {
+              console.log(res);
+              $("#mydata").html(res);
+            }
+          })
+        })
+        
+        $("#search_by").change(function () {
+          var txt = $('#search_work').val();
+          var search_by = $("#search_by").val()
+          console.log(txt);
+          $.ajax({
+            type: "get",
+            url: "/ajax_search_work",
+            data: {
+              search_work:txt,
+              search_by:search_by
+            },
+            success: function (res) {
+              console.log(res);
+              $("#mydata").html(res);
+            }
+          })
+        })
+
+        $("#search_by_category").change(function () {
+          var txt = $('#search_by_category').val();
+          // var search_by = $("#search_by").val()
+          console.log(txt);
+          $.ajax({
+            type: "get",
+            url: "/ajax_search_work_category",
+            data: {
+              search_by_category:txt,
+              // search_by:search_by
+            },
+            success: function (res) {
+              console.log(res);
+              $("#mydata").html(res);
+            }
+          })
+        })
+      })
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'admin/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/jszip/jszip.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/pdfmake/pdfmake.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/pdfmake/vfs_fonts.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+    <script src="{% static 'admin/plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'admin/dist/js/adminlte.min.js'%}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'admin/dist/js/demo.js'%}"></script>
+    <!-- Page specific script -->
+    <script>
+      $(function () {
+        $("#example1")
+          .DataTable({
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+          })
+          .buttons()
+          .container()
+          .appendTo("#example1_wrapper .col-md-6:eq(0)");
+        $("#example2").DataTable({
+          paging: true,
+          lengthChange: false,
+          searching: false,
+          ordering: true,
+          info: true,
+          autoWidth: false,
+          responsive: true,
+        });
+      });
+    </script>
+  </body>
+</html>

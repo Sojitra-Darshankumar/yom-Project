@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comment View</title>
+  </head>
+  <body>
+    <table border="1" style="text-align: center">
+      <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Picture</td>
+        <td>Subject</td>
+        <td>Comment</td>
+        <td>Blog id</td>
+        <td>Action</td>
+      </tr>
+      {% for row in Comments_view %}
+      <tr>
+        <td>{{row.id}}</td>
+        <td>{{row.Name}}</td>
+        <td>{{row.Email}}</td>
+        <td><img src="../../media/{{row.Picture}}" width="100" /></td>
+        <td>{{row.Subject}}</td>
+        <td>{{row.Comment}}</td>
+        <td>{{row.Blogid_id}}</td>
+        <td><a href="/delete_comment/{{row.id}}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
